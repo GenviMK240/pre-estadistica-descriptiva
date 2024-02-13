@@ -111,7 +111,10 @@ resta_matriz<- a-b
 print(suma_matriz)
 print(resta_matriz)
 
-JUSTIFICACION
+Obtenemos un resultado negativo basicamente porque R resta los valores
+uno por uno con el que se corresponde en su posicion en la matriz.La matriz a
+tiene valores de menor tamaño que la matriz b por lo que resultan en valores 
+negativos.
 
 #19
 matriz_t<- t(matriz1)
@@ -125,7 +128,14 @@ matriz_mult<- a*b
 print(matriz_mult)
 
 #22
-matriz_mult<- matrix{nrow=2, ncol=3}
+elemento <- matriz_mult[2, 3]
+print(elemento)
+
+segunda_fila <- matriz_mult[2, ]
+print(segunda_fila)
+
+tercera_columna <- matriz_mult[ , 3]
+print(tercera_columna)
 
 2a FICHA
 
@@ -160,13 +170,42 @@ var(num_cuentas)
 sd(num_cuentas)
 
 #10
-
+hist(num_cuentas, 
+     breaks = 10,  
+     col = "skyblue",  
+     xlab = "Número de cuentas por yacimiento", 
+     ylab = "Frecuencia",  
+     main = "Histograma de cuentas por yacimiento")  
 #11
-
+boxplot(num_cuentas,
+        main = "Diagrama de Cajas de Cuentas por Yacimiento",
+        ylab = "Número de cuentas por yacimiento")
 #12
+densidad <- density(num_cuentas)
+plot(densidad, main = "Gráfico de Densidad de Cuentas por Yacimiento",
+     xlab = "Número de cuentas por yacimiento", ylab = "Densidad")
 
 #13
-
+barplot(table(num_cuentas), 
+        main = "Gráfico de Barras de Cuentas por Yacimiento",
+        xlab = "Número de cuentas por yacimiento",
+        ylab = "Frecuencia")
 #14
+tipo_artefacto <- c("piedra", "metal", "cerámica", "madera", "vidrio")
+material <- c("oro", "plata", "bronce", "arcilla", "madera", "piedra", "hueso")
+periodo_cultural <- c("prehistórico", "antiguo", "medieval", "protohistorico", "moderno")
+estado_conservacion <- c("excelente", "bueno", "regular", "deteriorado")
+ubicacion_artefacto <- c("museo", "colección privada", "sitio arqueológico")
 
+set.seed(123)
+num_cuentas <- lapply(list(tipo_artefacto, material, periodo_cultural, estado_conservacion, ubicacion_artefacto), 
+                   function(x) sample(x, 10, replace = TRUE))
 
+tablas_frecuencia <- lapply(num_cuentas, table)
+
+names(tablas_frecuencia) <- c("Tipo de Artefacto", "Material", "Periodo Cultural", "Estado de Conservación", "Ubicación del Artefacto")
+for (i in 1:length(tablas_frecuencia)) {
+  cat("Tabla de Frecuencias para", names(tablas_frecuencia)[i], ":\n")
+  print(tablas_frecuencia[[i]])
+  write.table(tablas_frecuencia[[i]], file = paste("tabla_", names(tablas_frecuencia)[i], ".txt", sep = ""), sep = "\t")
+}
