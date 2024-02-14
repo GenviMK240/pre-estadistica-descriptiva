@@ -1,3 +1,5 @@
+Genoveva Serrano Fernandez
+
 getwd()
 nuevo_dir<-"C:/pre-estadistica descriptiva"
 setwd(nuevo_dir)
